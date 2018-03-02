@@ -150,6 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
+         SeanDowney\BackpackEventsCrud\EventsCRUDServiceProvider::class,
 
         /*
          * Application Service Providers...

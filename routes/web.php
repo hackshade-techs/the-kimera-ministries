@@ -11,6 +11,34 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// frontend routes
+Route::get('/', 'PageController@welcome');
+Route::get('/articles', 'ArticleController@index');
+Route::get('/articles/{category}/{article}', 'ArticleController@show');
+Route::get('/articles/{category}', 'ArticleController@showCategory');
+
+Route::resource('contacts', 'ContactController', ['only', 'store']);
+
+// backend routes
+// Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');
+// --------------------
+// Backpack\Demo routes
+// --------------------
+Route::group([
+    'prefix'     => config('backpack.base.route_prefix', 'admin'),
+    'middleware' => ['admin'],
+    'namespace'  => 'Admin',
+], function () {
+    // CRUD resources and other admin routes
+    CRUD::resource('slide', 'SlideCrudController');
+    CRUD::resource('album', 'AlbumCrudController');
+    CRUD::resource('photo', 'PhotoCrudController');
+    CRUD::resource('volunteer', 'VolunteerCrudController');
+    CRUD::resource('contact', 'ContactCrudController');
+    CRUD::resource('newsletter', 'NewsletterCrudController');
 });
+
+/** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
+Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])
+    ->where(['page' => '^((?!admin).)*$', 'subs' => '.*']);
