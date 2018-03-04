@@ -31,12 +31,56 @@ class PhotoCrudController extends CrudController
         $this->crud->setFromDb();
 
         // ------ CRUD FIELDS
+        /* Album selector for the photo */
+        $this->crud->addField([  // Select2
+           'label' => "Album",
+           'type' => 'select2',
+           'name' => 'album_id', // the db column for the foreign key
+           'entity' => 'album', // the method that defines the relationship in your Model
+           'attribute' => 'title', // foreign key attribute that is shown to user
+           'model' => "App\Models\Album" // foreign key model
+        ]);
+
+        /* Browse Field for the image */
+        $this->crud->addField([   // Browse
+            'name' => 'image',
+            'label' => 'Image',
+            'type' => 'browse'
+        ]);
+
+        /* Description Field */
+        $this->crud->addField([   // WYSIWYG Editor
+            'name' => 'description',
+            'label' => 'Description',
+            'type' => 'wysiwyg'
+        ]);
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
         // ------ CRUD COLUMNS
+        /* Album Column  */
+        $this->crud->addColumn([
+           // 1-n relationship
+           'label' => "Album", // Table column heading
+           'type' => "select",
+           'name' => 'album_id', // the column that contains the ID of that connected entity;
+           'entity' => 'album', // the method that defines the relationship in your Model
+           'attribute' => "title", // foreign key attribute that is shown to user
+           'model' => "App\Models\Album", // foreign key model
+        ]);
+
+        /* Image Field Column */
+        $this->crud->addColumn([
+           'name' => 'image', // The db column name
+           'label' => "Image", // Table column heading
+           'type' => 'image',
+            // 'prefix' => 'folder/subfolder/',
+            // optional width/height if 25px is not ok with you
+            // 'height' => '30px',
+            // 'width' => '30px',
+        ]);
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack
         // $this->crud->removeColumn('column_name'); // remove a column from the stack

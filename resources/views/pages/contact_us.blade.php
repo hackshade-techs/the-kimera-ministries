@@ -79,22 +79,22 @@ About Us
                               <ul class="social-media">
                                   <li>
 
-                                      <a href="#" title="">
-                                          <i class="fa fa-linkedin"></i>
+                                      <a href="{{ Config::get('settings.youtube') }}" title="Youtube">
+                                          <i class="fa fa-youtube"></i>
                                       </a>
                                   </li>
                                   <li>
-                                      <a href="#" title="">
+                                      <a href="{{ Config::get('settings.google_plus') }}" title="Google Plus">
                                           <i class="fa fa-google-plus"></i>
                                       </a>
                                   </li>
                                   <li>
-                                      <a href="#" title="">
+                                      <a href="{{ Config::get('settings.twitter') }}" title="Twitter">
                                           <i class="fa fa-twitter"></i>
                                       </a>
                                   </li>
                                   <li>
-                                      <a href="{{ Config::get('settings.facebook') }}" title="">
+                                      <a href="{{ Config::get('settings.facebook') }}" title="Facebook">
                                           <i class="fa fa-facebook"></i>
                                       </a>
                                   </li>
@@ -135,25 +135,25 @@ About Us
                           <div class="col-md-3">
                               <div class="info-block">
                                   <i class="fa fa-home"></i>
-                                  <p>310 South Jurack Avenue</p>
+                                  <p>{{ Config::get('settings.contact_cc') }}</p>
                               </div>
                           </div>
                           <div class="col-md-3">
                               <div class="info-block">
                                   <i class="fa fa-info"></i>
-                                  <p>www.themes.webinane.com</p>
+                                  <p>{{ Config::get('settings.website') }}</p>
                               </div>
                           </div>
                           <div class="col-md-3">
                               <div class="info-block">
                                   <i class="fa fa-envelope-o"></i>
-                                  <p>youremail@yourdomain.com</p>
+                                  <p>{{ Config::get('settings.contact_email') }}</p>
                               </div>
                           </div>
                           <div class="col-md-3">
                               <div class="info-block">
                                   <i class="fa fa-mobile"></i>
-                                  <p>(000) +123 123 1235</p>
+                                  <p>{{ Config::get('settings.phone_1') }}</p>
                               </div>
                           </div>
                       </div>

@@ -28,6 +28,7 @@
               <ul class="treeview-menu">
                 <li><a href="{{ backpack_url('volunteer') }}"><i class="fa fa-user"></i> <span>Volunteers</span></a></li>
                 <li><a href="{{ backpack_url('contact') }}"><i class="fa fa-comments"></i> <span>Contact Feedback</span></a></li>
+                <li><a href="{{ backpack_url('churchactivity') }}"><i class="fa fa-wrench"></i> <span>Church Activites</span></a></li>
                 <li><a href="{{ backpack_url('newsletter') }}"><i class="fa fa-envelope"></i> <span>Newsletter</span></a></li>
               </ul>
           </li>

@@ -20,9 +20,6 @@
         <a href="{{ url('get-involved') }}" title="Get Involved">Get Involved</a>
     </li>
 
-    <li>
-        <a href="{{ url('volunteer') }}" title="Volunteer">Volunteer</a>
-    </li>
 
     <li>
         <a href="{{ url('donate-to-us') }}" title="Donate To Us">Donate</a>

@@ -2,31 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Volunteer;
+use Mail;
+use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use App\Mail\VolunteerNotification;
 
 class VolunteerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,51 +17,22 @@ class VolunteerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      Volunteer::create(request()->all());
+
+      try {
+
+          $this->sendMail(request()->all());
+
+      } catch (\Exception $e) {
+          return back()->withFail('Sending Mail Failed, this is a problem with your internet connection, please try agin later');
+      }
+
+      return back()->withSuccess("Thanks for Volunteering $request->first_name $request->last_name , you shall be contacted shortly");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Volunteer  $volunteer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Volunteer $volunteer)
+    public function sendMail($data)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Volunteer  $volunteer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Volunteer $volunteer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Volunteer  $volunteer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Volunteer $volunteer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Volunteer  $volunteer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Volunteer $volunteer)
-    {
-        //
+        $recepient = ['hackshadetechs@gmail.com'];
+        Mail::to($recepient)->send(new VolunteerNotification($data));
     }
 }

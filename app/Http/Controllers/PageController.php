@@ -8,7 +8,7 @@ use Backpack\PageManager\app\Models\Page;
 class PageController extends Controller
 {
 
-  // Renders all the pages generated using the backpack page manager
+  /* Renders all the pages generated using the backpack page manager */
   public function index($slug)
   {
       $page = Page::findBySlug($slug);
@@ -24,7 +24,7 @@ class PageController extends Controller
       return view('pages.'.$page->template, $this->data);
   }
 
-  // Renders the home page
+  /* Renders the welcome page for the home view */
 
   public function welcome()
   {

@@ -18,8 +18,8 @@ class Photo extends Model
     protected $table = 'photos';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
-    // protected $guarded = ['id'];
-    protected $fillable = [];
+    protected $guarded = ['id'];
+    // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,6 +34,13 @@ class Photo extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+   
+    /* Get the album that owns particular photos */
+   
+    public function album()
+    {
+        return $this->belongsTo('App\Models\Album');
+    }
 
     /*
     |--------------------------------------------------------------------------

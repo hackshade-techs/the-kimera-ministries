@@ -1,104 +1,133 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
-{{-- Page title --}}
 @section('title')
-{{{ $event->title }}} ::
-@parent
-@stop
+{{{ $event->title }}}
+@endsection
 
-{{-- Update the Meta Description --}}
-@section('meta_description')
-{{{ !is_null($event->meta_description) ? $event->meta_description : ''}}}
-@stop
+@section('desc')
+  {{{ !is_null($event->meta_description) ? $event->meta_description : ''}}}
+@endsection
 
-{{-- Page content --}}
+@section('keywords')
+
+@endsection
+
+@section('css')
+
+@endsection
+
 @section('content')
-<article class="page" itemscope itemtype="http://schema.org/Event">
-	<h1 itemprop="name">{{ $event->title }} @if(!is_null($event->speaker)) <span>by {{ $event->speaker }}</span>@endif</h1>
-	<div class="event-date">
-        <time itemprop="startDate" datetime="{{ $event->start_time->format('c') }}"></time>
-        @if($event->end_time !== null)<time itemprop="endDate" datetime="{{ $event->end_time->format('c') }}"></time>@endif
-        {{ $event->start_time->format('g:ia D jS F\ Y') }}
-        @if($event->end_time !== null) to {{ $event->end_time->format('g:ia D jS F\ Y') }}@endif
+
+<div class="page-top">
+
+  <div class="parallax" style="background:url({{ asset('images/parallax1.jpg') }});"></div>  
+
+  <div class="container"> 
+
+    <h1>{{{ $event->title }}}</h1>
+
+    <ul>
+
+      <li><a href="{{ url('/') }}" title="">Home</a></li>
+
+      <li><a href="{{ url('events') }}" title="">Events</a></li>
+
+      <li><a href="{{ $event->url() }}" title="">{{{ $event->title }}}</a></li>
+
+    </ul>
+
+  </div>
+
+</div><!--- PAGE TOP -->
+
+
+
+<section>
+
+  <div class="block">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-8 column">
+
+          <div class="single-page">
+
+            <img src="{{ asset($event->image) }}" alt="" />
+
+            <h2>{{ $event->title }} @if(!is_null($event->speaker)) <span>by {{ $event->speaker }}</span>@endif</h2>
+
+            <div class="meta">
+
+              <ul>
+
+
+                <li><i class="fa fa-calendar-o"></i> {{ $event->start_time->format('g:ia D jS F\ Y') }} </li>
+                <li>to </li>
+                <li><i class="fa fa-calendar-o"></i> {{ $event->end_time->format('g:ia D jS F\ Y') }}</li>
+
+
+              </ul>
+
+
+            </div><!-- POST META -->
+
+          </div><!-- SERMON SINGLE -->
+
+          
+
+          <p>
+            {!! $event->body !!}
+          </p>
+
+
+
+          <div class="comments">
+
+            <h4>COMMENTS</h4>
+
+            <div id="disqus_thread"></div>
+            <script>
+
+            /**
+              *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+              *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+              /*
+              var disqus_config = function () {
+              this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+              this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+              };
+              */
+              (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+              s.src = 'https://the-kimera-ministries.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+            </ul>
+
+          </div><!-- COMMENTS -->                   
+
+
+        </div>
+
+
+        @include('includes.sidebar')
+
+      </div>
+
     </div>
-	@if(!empty($event->image))
-	<div class="event-image">
-		<img src="{{ url($event->image) }}" title="{{ $event->title }}" alt="{{ $event->title }}" />
-	</div>
-	@endif
 
-	@if($display_ticket_form)
-	<h2>Book your tickets now</h2>
-	<div style="width:100%; text-align:left;" >
-		@include('seandowney::eventscrud.ticket_vendors.'.$ticket_vendors[$event->ticket_vendor], array('event' => $event))
-	</div>
-	@endif
+  </div>
 
-	{!! $event->body !!}
+</section>
 
-    @if(isset($event->venue))
-	<h2>Venue</h2>
-	<div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
-		<strong itemprop="name">{{ $event->venue->title }}</strong>
-		@if(isset($event->venue->description)){!! $event->venue->description !!}@endif
-		<address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-			@if(!empty($event->venue->address1) || !empty($event->venue->address2))
-			<span itemprop="streetAddress">{{ $event->venue->address1 }}@if(!empty($event->venue->address2)),<br/>{{ $event->venue->address2 }}@endif</span>,<br/>
-			@endif
-			@if(isset($event->venue->city))
-			<span itemprop="addressLocality">{{ $event->venue->city }}</span>,<br/>
-			@endif
-			@if(isset($event->venue->state))
-			<span itemprop="addressRegion">{{ $event->venue->state }}</span><br/>
-			@endif
-			@if(isset($event->venue->postcode))
-			<span itemprop="postalCode">{{ $event->venue->postcode }}</span><br/>
-			@endif
-			@if(isset($event->venue->country))
-			<span itemprop="addressCountry">{{ $event->venue->country }}</span><br/>
-			@endif
-		</address>
-		<p>
-			@if(!empty($event->venue->url))
-			W: <a href="{{ $event->venue->url }}" itemprop="url">{{ $event->venue->url }}</a><br/>
-			@endif
-			@if(!empty($event->venue->phone))
-			T: <span itemprop="telephone">{{ $event->venue->phone }}</span><br/>
-			@endif
-			@if(isset($event->venue->latitude) && isset($event->venue->longitude))
-			<span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
-				C: {{ $event->venue->latitude }}, {{ $event->venue->longitude }}
-				<meta itemprop="latitude" content="{{ $event->venue->latitude }}" />
-				<meta itemprop="longitude" content="{{ $event->venue->longitude }}" />
-			</span>
-			@endif
-		</p>
-		<div class="Flexible-container">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2360.7531368800155!2d{{ $event->venue->longitude }}!3d{{ $event->venue->latitude }}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTPCsDQzJzIxLjYiTiA2wrAxOSczMy41Ilc!5e0!3m2!1sen!2sie!4v1488119023181" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-		</div>
-		<style>
+@endsection
 
-/* Flexible iFrame */
-
-.Flexible-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-}
-
-.Flexible-container iframe,
-.Flexible-container object,
-.Flexible-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-		</style>
-	</div>
-    @endif
-</article>
-@stop
+@section('js')
+<script id="dsq-count-scr" src="//the-kimera-ministries.disqus.com/count.js" async></script>
+@endsection

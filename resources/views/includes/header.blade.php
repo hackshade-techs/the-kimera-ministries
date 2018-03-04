@@ -44,35 +44,35 @@
                     </div>
 
                     <p>
-                        <i class="fa fa-mobile"></i> 24/7 Support: 123-456-7890</p>
+                        <i class="fa fa-mobile"></i> 24/7 Support: {{ Config::get('settings.phone_1') }}</p>
                     <!--- CONTACT -->
 
                     <p>
-                        <i class="fa fa-envelope"></i> Youremail@yourdomain.com</p>
+                        <i class="fa fa-envelope"></i> {{ Config::get('settings.contact_email') }}</p>
                     <!--- EMAIL -->
 
                     <ul class="social-media">
 
                         <li>
-                            <a title="" href="#">
-                                <i class="fa fa-linkedin"></i>
+                            <a title="Youtube" href="{{ Config::get('settings.youtube') }}">
+                                <i class="fa fa-youtube"></i>
                             </a>
                         </li>
 
                         <li>
-                            <a title="" href="#">
+                            <a title="Google Plus" href="{{ Config::get('settings.google_plus') }}">
                                 <i class="fa fa-google-plus"></i>
                             </a>
                         </li>
 
                         <li>
-                            <a title="" href="#">
+                            <a title="Twitter" href="{{ Config::get('settings.twitter') }}">
                                 <i class="fa fa-twitter"></i>
                             </a>
                         </li>
 
                         <li>
-                            <a title="" href="#">
+                            <a title="Facebook" href="{{ Config::get('settings.facebook') }}">
                                 <i class="fa fa-facebook"></i>
                             </a>
                         </li>
@@ -101,7 +101,7 @@
                     <div class="logo">
 
                         <a href="#" title="">
-                            <img src="images/logo.png" alt="" />
+                            <img src="{{ asset(Config::get('settings.logo')) }}" alt="" />
                         </a>
 
                     </div>
