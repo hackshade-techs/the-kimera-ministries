@@ -6,8 +6,10 @@ use App\Models\Album;
 use App\Models\Slide;
 use App\Models\ChurchActivity;
 use Backpack\NewsCRUD\app\Models\Category;
+use Backpack\NewsCRUD\app\Models\Article;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use SeanDowney\BackpackEventsCrud\app\Models\Event;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,17 +32,33 @@ class AppServiceProvider extends ServiceProvider
             $view->with('albums', Album::albums());
         });
 
-        /* Gets the Slides */
+        /* Get the Slides */
         view()->composer(['includes.slider'], function($view) {
             $view->with('slides', Slide::slides());
         });
 
-        /* Gets the Featured Church Activities */
+        /* Get the Featured Church Activities */
         view()->composer(['includes.church-activities'], function($view) {
             $view->with('churchActivities', ChurchActivity::churchActivities());
         });
 
-        
+        /* Get the Recent Articles */
+        view()->composer(['pages.blog.recent'], function($view) {
+            $view->with('articles', Article::recentArticles());
+        });
+
+        /* Get the  Church Activities */
+        view()->composer(['pages.join_us'], function($view) {
+            $view->with('churchActivities', ChurchActivity::Activities());
+        });
+
+        $events = new Event();
+        view()->composer(['includes.sidebar'], function ($view) use ($events) {
+            $view->with('events', $events->upcoming());
+            $view->with('ticket_vendors', config('seandowney.eventscrud.ticket_vendors'));
+        });
+
+
     }
 
     /**
@@ -50,6 +68,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        
     }
 }

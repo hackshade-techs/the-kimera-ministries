@@ -3,52 +3,53 @@
 	<div class="widget">
 
 		<div class="widget-title"><h4>UPCOMING EVENT</h4></div>
+		@foreach($events as $event)
+			<div class="event-count">
 
-		<div class="event-count">
+				<div class="event-img">
 
-			<div class="event-img">
+					<img src="{{ asset($event->image) }}" alt="{{ $event->title }}" />
 
-				<img src="images/resource/event1.jpg" alt="" />
+					<div class="downcount">
 
-				<div class="downcount">
+						<i class="fa fa-clock-o"></i>
 
-					<i class="fa fa-clock-o"></i>
+						<ul class="countdown">
 
-					<ul class="countdown">
+							<li> <span class="days">{{ $event->start_time->diffInDays(\Carbon\Carbon::now()) }}</span>
 
-						<li> <span class="days">00</span>
+							<p class="days_ref">DAYS</p>
 
-						<p class="days_ref">DAYS</p>
+							</li>
 
-						</li>
+							<li> <span class="hours">{{ $event->start_time->diffInHours(\Carbon\Carbon::now()) }}</span>
 
-						<li> <span class="hours">00</span>
+							<p class="hours_ref">HOURS</p>
 
-						<p class="hours_ref">HOURS</p>
+							</li>
 
-						</li>
+							<li> <span class="minutes">{{ $event->start_time->diffInMinutes(\Carbon\Carbon::now()) }}</span>
 
-						<li> <span class="minutes">00</span>
+							<p class="minutes_ref">MINS</p>
 
-						<p class="minutes_ref">MINTS</p>
+							</li>
 
-						</li>
+							<li> <span class="seconds">{{ $event->start_time->diffInSeconds(\Carbon\Carbon::now()) }}</span>
 
-						<li> <span class="seconds">00</span>
+							<p class="seconds_ref">SECS</p>
 
-						<p class="seconds_ref">SECS</p>
+							</li>
 
-						</li>
+						</ul>
 
-					</ul>
+					</div>
 
 				</div>
 
+				<h4><a href="{{ $event->url() }}" title="{{ $event->title }}">{{ $event->title }}</a></h4>
+
 			</div>
-
-			<h4><a href="event-single.html" title="">Offer and General Visuals</a></h4>
-
-		</div>
+		@endforeach
 
 	</div><!-- UPCOMING EVENT -->
 
@@ -69,43 +70,11 @@
 
 	<div class="widget">
 
-		<div class="widget-title"><h4>POPULAR POSTS</h4></div>
+		<div class="widget-title"><h4>RECENT POSTS</h4></div>
 
 		<div class="remove-ext">
 
-			<div class="widget-blog">
-
-				<div class="widget-blog-img"><img src="images/resource/widget-blog.jpg" alt="" /></div>
-
-				<p><a href="blog-single.html" title="">Suspendisse velit anteg, aliquet vel adiping.</a></p>
-
-				<span><i class="fa fa-calendar-o"></i> November 01, 2013</span>
-
-			</div><!-- WIDGET BLOG -->
-
-
-
-			<div class="widget-blog">
-
-				<div class="widget-blog-img"><img src="images/resource/widget-blog2.jpg" alt="" /></div>
-
-				<p><a href="blog-single.html" title="">Suspendisse velit anteg, aliquet vel adiping.</a></p>
-
-				<span><i class="fa fa-calendar-o"></i> November 01, 2013</span>
-
-			</div><!-- WIDGET BLOG -->
-
-
-
-			<div class="widget-blog">
-
-				<div class="widget-blog-img"><img src="images/resource/widget-blog3.jpg" alt="" /></div>
-
-				<p><a href="blog-single.html" title="">Suspendisse velit anteg, aliquet vel adiping.</a></p>
-
-				<span><i class="fa fa-calendar-o"></i> November 01, 2013</span>
-
-			</div><!-- WIDGET BLOG -->
+			@include('pages.blog.recent')
 
 		</div>
 

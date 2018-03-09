@@ -7,39 +7,7 @@
 
                     <div class="header-timer">
 
-                        <p>Upcoming Prayers:</p>
-
-                        <ul class="headercounter">
-
-                            <li>
-                                <span class="days">00</span>
-
-                                <p class="days_ref">DAYS</p>
-
-                            </li>
-
-                            <li>
-                                <span class="hours">00</span>
-
-                                <p class="hours_ref">HOURS</p>
-
-                            </li>
-
-                            <li>
-                                <span class="minutes">00</span>
-
-                                <p class="minutes_ref">MINTS</p>
-
-                            </li>
-
-                            <li>
-                                <span class="seconds">00</span>
-
-                                <p class="seconds_ref">SECS</p>
-
-                            </li>
-
-                        </ul>
+                        <p>The Kimera Ministries</p>
 
                     </div>
 
